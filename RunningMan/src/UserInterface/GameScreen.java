@@ -21,6 +21,10 @@ import objectgame.MainCharacter;
  * @author E P A
  */
 public class GameScreen extends JPanel implements Runnable, KeyListener{
+    // Edited by AA.
+    public static final int GAME_FIRST_STATE = 0;
+    public static final int GAME_PLAY_STATE = 1;
+    public static final int GAME_OVER_STATE = 2;
     public static final float GRAVITY = 0.7f;
     public static final float GROUNDY = 280;
    
@@ -31,7 +35,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
     private EnemiesManager enemiesManager;
     
     // Edited by AA.
-    private int gameState;
+    private int gameState = GAME_FIRST_STATE;
     
     public GameScreen() {
         thread = new Thread(this);
@@ -77,6 +81,13 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
         mainCharacter.draw(g);
         enemiesManager.draw(g);
         
+        // Edited by AA.
+        switch (gameState){
+                case GAME_FIRST_STATE;
+                 mainCharacter.draw(g);
+                break;
+        }
+                
         
     }
 
