@@ -19,8 +19,10 @@ public class EnemiesManager {
     private List<Enemy> enemies;
     private Random random;
     private BufferedImage imageHurdle2, imageHurdle3;
+    private MainCharacter mainCharacter;
     
-    public EnemiesManager() {
+    public EnemiesManager(MainCharacter mainCharacter) {
+        this.MainCharacter = mainCharacter;
         enemies = new ArrayList<Enemy>();
         imageHurdle2 = Resource.getResourceImage("data/hurdle2.png");
         imageHurdle3 = Resource.getResourceImage("data/hurdle3.png");
@@ -33,6 +35,9 @@ public class EnemiesManager {
     public void update() {
         for(Enemy e : enemies) {
             e.update();
+            if (e.getBound().intersects(mainCharacter.getBound())){
+                
+            }
         }
         Enemy firstEnemy = enemies.get(0);
         if(firstEnemy.isOutOfScreen()) {
