@@ -83,7 +83,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
         
         // Edited by AA.
         switch (gameState){
-                case GAME_FIRST_STATE;
+            case GAME_FIRST_STATE:
                  mainCharacter.draw(g);
                 break;
         }
