@@ -24,7 +24,7 @@ public class GameWindow extends JFrame{
     private GameScreen gameScreen;
     
    public GameWindow() {
-       super("Running Man");
+       super("Athlete Jump Game");
        setSize(600,400);
        setLocation(500,300);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

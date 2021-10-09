@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+// Sample comment.
 package UserInterface;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,14 +38,16 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
     // Edited by AA.
     private int gameState = GAME_FIRST_STATE;
     
+    private BufferedImage imageGameOverText;
+    
     public GameScreen() {
         thread = new Thread(this);
         mainCharacter = new MainCharacter();
         mainCharacter.setX(30);
         land = new Land(this);
         clouds = new Clouds();
-        enemiesManager = new EnemiesManager();
-        
+        enemiesManager = new EnemiesManager(mainCharacter); // Edited by AA.
+        imageGameOverText = Resource.getResourceImage(""); // type inside ("") = "data/gameover text.png" (ex. file of the GAME OVER TEXT)
     }
     
     public void startGame() {
@@ -54,12 +57,8 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
     @Override
     public void run() {
         while(true) {
-            mainCharacter.update();
-            land.update();
-            clouds.update();
-            enemiesManager.update();
-            
-            
+            // Edited by AA.
+            update();
             repaint();
             try {
                 Thread.sleep(20);
@@ -67,6 +66,21 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
                 Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+   // Edited by AA. 
+    public void update(){
+        switch (gameState){
+            case GAME_PLAY_STATE:
+                 mainCharacter.update();
+                 land.update();
+                 clouds.update();
+                 enemiesManager.update();
+                 if (!mainCharacter.getAlive()) {
+                     gameState = GAME_OVER_STATE;
+                 }
+                 break;
+        }
+         
     }
     
     @Override
@@ -86,11 +100,18 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
             case GAME_FIRST_STATE:
                  mainCharacter.draw(g);
                 break;
-                case GAME_PLAY_STATE;
+            case GAME_PLAY_STATE:
                 clouds.draw(g);
                 land.draw(g);
                 mainCharacter.draw(g);
                 enemiesManager.draw(g);
+                break;
+                 case GAME_OVER_STATE:
+                clouds.draw(g);
+                land.draw(g);
+                mainCharacter.draw(g);
+                enemiesManager.draw(g);
+                g.drawImage(imageGameOverText, 100, 50, null);
                 break;
         }
                 
@@ -114,6 +135,10 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
         switch (e.getKeyCode()){
             case KeyEvent.VK_SPACE:
                 if (gameState = GAME_FIRST_STATE){
+                    gameState = GAME_PLAY_STATE;
+                } else if (gameState == GAME_PLAY_STATE) {
+                    mainCharacter.jump();
+                } else if (gameState == GAME_OVER_STATE){
                     gameState = GAME_PLAY_STATE;
                 }
                 
