@@ -86,6 +86,12 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
             case GAME_FIRST_STATE:
                  mainCharacter.draw(g);
                 break;
+                case GAME_PLAY_STATE;
+                clouds.draw(g);
+                land.draw(g);
+                mainCharacter.draw(g);
+                enemiesManager.draw(g);
+                break;
         }
                 
         
@@ -105,5 +111,13 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         System.out.println("Key Released");
+        switch (e.getKeyCode()){
+            case KeyEvent.VK_SPACE:
+                if (gameState = GAME_FIRST_STATE){
+                    gameState = GAME_PLAY_STATE;
+                }
+                
+                break;
+        }
     }
 }
