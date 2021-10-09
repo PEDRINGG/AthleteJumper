@@ -43,7 +43,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
         mainCharacter.setX(30);
         land = new Land(this);
         clouds = new Clouds();
-        enemiesManager = new EnemiesManager();
+        enemiesManager = new EnemiesManager(mainCharacter); // Edited by AA.
         
     }
     
@@ -72,6 +72,9 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
                  land.update();
                  clouds.update();
                  enemiesManager.update();
+                 if (!mainCharacter.getAlive()) {
+                     gameState = GAME_OVER_STATE;
+                 }
                  break;
         }
          
