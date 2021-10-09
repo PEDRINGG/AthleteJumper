@@ -30,6 +30,9 @@ public class GameScreen extends JPanel implements Runnable, KeyListener{
     private Clouds clouds;
     private EnemiesManager enemiesManager;
     
+    // Edited by AA.
+    private int gameState;
+    
     public GameScreen() {
         thread = new Thread(this);
         mainCharacter = new MainCharacter();
